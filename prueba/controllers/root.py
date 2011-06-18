@@ -9,12 +9,8 @@ from repoze.what import predicates
 
 from prueba.lib.base import BaseController
 from prueba.model import DBSession, metadata
-<<<<<<< HEAD
 from prueba.model import User, Group, Permission, Proyecto, Fase, Tipoitem, Campo, Item, Relacion, Atributo, Modificacion, Revision, HistorialItem
 from prueba.model import ItemHistorial, AtributoHistorial, RelacionHistorial
-=======
-from prueba.model import User, Group, Permission, Proyecto, Fase, Tipoitem, Campo, Item, Relacion
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 from prueba import model
 from prueba.controllers.secure import SecureController
 from prueba.widgets.rol_form import crear_rol_form, editar_rol_form
@@ -22,11 +18,7 @@ from prueba.widgets.usuario_form import crear_usuario_form
 from prueba.widgets.proyecto_form import crear_proyecto_form
 from prueba.widgets.fase_form import crear_fase_form
 from prueba.widgets.campo_form import crear_campo_form
-<<<<<<< HEAD
 from tw.forms.validators import NotEmpty, Int, DateValidator
-=======
-from tw.forms.validators import NotEmpty, Int
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 
 from prueba.controllers.error import ErrorController
 from repoze.what.predicates import not_anonymous
@@ -39,17 +31,15 @@ from sprox.fillerbase import TableFiller
 from sprox.formbase import EditableForm
 from sprox.fillerbase import EditFormFiller
 
-<<<<<<< HEAD
 from sqlalchemy import or_, func, distinct
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.exc import MultipleResultsFound
 import formencode
 from formencode import validators
 from formencode.validators import DateConverter
+from prueba.controllers.CalculoImpacto import CalculoImpacto
+from prueba.controllers.Ciclos import Ciclos
 
-
-=======
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 __all__ = ['RootController']
 
 #Rol
@@ -129,11 +119,8 @@ class ProyectoController(CrudRestController):
     edit_filler = proyecto_edit_filler
     edit_form = proyecto_edit_form
 
-<<<<<<< HEAD
 class PwdSchema(formencode.Schema):
     nombre = validators.NotEmpty()
-=======
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 
 class RootController(BaseController):
     """
@@ -527,11 +514,7 @@ class RootController(BaseController):
 	proyectos = currentPage.items
 	### Para determinar si el usuario actualmente loggeado tiene permiso para crear nuevos roles
 	permiso_para_crear = has_permission('crear_usuario')
-<<<<<<< HEAD
 	return dict(page='Listado de Proyectos', proyectos=proyectos, currentPage = currentPage, p=permiso_para_crear,permiso='crear_proyecto')  
-=======
-	return dict(page='Listado de Proyectos', proyectos=proyectos, currentPage = currentPage, p=permiso_para_crear)  
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 
     #################### INICIO_FASES ####################
     ### Crear fase
@@ -565,7 +548,6 @@ class RootController(BaseController):
     @expose('prueba.templates.ingresar_fase')
     def IngresarFase(self, proyecto_id, fase_id, **kw):
 	proyecto = DBSession.query(Proyecto).filter_by(codproyecto=proyecto_id).one()
-<<<<<<< HEAD
 	fases = proyecto.fases
 	fase = DBSession.query(Fase).filter_by(codfase=fase_id).one()
 	items = fase.items
@@ -573,20 +555,12 @@ class RootController(BaseController):
 	if not isinstance(items, list):
 		items = [items]
 	return dict(modelname='Proyecto', proyecto=proyecto, fases=fases, fase=fase, items=items, value=kw)
-=======
-	fase = DBSession.query(Fase).filter_by(codfase=fase_id).one()
-	items = fase.items
-	if not isinstance(items, list):
-		items = [items]
-	return dict(modelname='Proyecto', proyecto=proyecto, fase=fase, items=items, value=kw)
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
     
     @expose()
     def CrearTipoItemBasico(self, proyecto_id, fase):
 	t = Tipoitem()
 	t.nombre='Basico'
 	t.fase=fase
-<<<<<<< HEAD
 	#c1 = Campo()
 	#c1.nombre = 'Nombre'
 	#c1.tipo = 'String'
@@ -612,33 +586,6 @@ class RootController(BaseController):
 	#t.campos.append(c5)
 	#t.campos.append(c6)
 	DBSession.add(t)
-=======
-	c1 = Campo()
-	c1.nombre = 'Nombre'
-	c1.tipo = 'String'
-	c2 = Campo()
-	c2.nombre = 'Complejidad'
-	c2.tipo = 'Int'
-	c3 = Campo()
-	c3.nombre = 'Prioridad'
-	c3.tipo = 'Int'
-	c4 = model.Campo()
-	c4.nombre = 'Version'
-	c4.tipo = 'Int'
-	c5 = model.Campo()
-	c5.nombre = 'Estado'
-	c5.tipo = 'String'
-	c6 = model.Campo()
-	c6.nombre = 'Fecha'
-	c6.tipo = 'Date'
-	t.campos.append(c1)
-	t.campos.append(c2)
-	t.campos.append(c3)
-	t.campos.append(c4)
-	t.campos.append(c5)
-	t.campos.append(c6)
-	DBSession.flush()
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 
     @expose('prueba.templates.editar_fase')
     def EditarFase(self, proyecto_id, fase_id, **kw):
@@ -674,7 +621,6 @@ class RootController(BaseController):
     #################### INICIO_TIPO_ITEMS ####################
     ### Crear Tipo de Ítems
     @expose('prueba.templates.crear_tipoitem')
-<<<<<<< HEAD
     def NuevoTipoDeItem(self, proyecto_id, fase_id, nombre="", **kw):
 	proyecto = DBSession.query(Proyecto).filter_by(codproyecto=proyecto_id).one()
 	fase = DBSession.query(Fase).filter_by(codfase=fase_id).one()	
@@ -709,10 +655,6 @@ class RootController(BaseController):
 	campos = tipoitem.campos
 	if not isinstance(campos, list):
 		campos=[campos]
-=======
-    def NuevoTipoDeItem(self, proyecto_id, fase_id, **kw):
-	#print kw
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 	#nombre=""
 	#atributos=list()	
 	#if 'nombre' in kw:
@@ -721,30 +663,8 @@ class RootController(BaseController):
 	#	if not isinstance(fases, list):
 	#		atributos=[atributos]
 	#	atributos=atributos
-<<<<<<< HEAD
 	return dict(page='Creacion de tipos de item', proyecto=proyecto, fase=fase, tipoitem=tipoitem, campos=campos, value=kw)
     
-=======
-	return dict(page='Creacion de tipos de item', value=kw)
-    
-    @expose()
-    def crearTipoDeItem(self, **kw):
-	print kw
-	#Fase = Fase()
-	#fase.nombre = kw['nombre']
-	#fase.descripcion = kw['descripcion']
-	#fase.estado = "definicion"
-	#import datetime
-	#fase.fecha = datetime.date.today()
-	#proyecto = DBSession.query(Proyecto).filter_by(codproyecto=proy_id).one()
-	#fase.proyecto = proyecto
-	#proyecto.fases.append(fase)
-	#fase.codproyecto=int(proy_id)
-	#DBSession.add(fase)
-    	flash("El tipo de item fue creado con exito")
-    	#redirect("/NuevoTipoDeItem/"+proyecto_id+fase_id+atributo)
-
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
     @expose('prueba.templates.tipos_de_items')
     def TipoDeItem(self, proyecto_id, fase_id, **kw):
 	proyecto = DBSession.query(Proyecto).filter_by(codproyecto=proyecto_id).one()
@@ -767,11 +687,7 @@ class RootController(BaseController):
 	return dict(page='Creacion de Items', proyecto_id=proyecto_id, fase_id=fase_id, tipos_item=tipos_item, value=kw)
 
     @expose('prueba.templates.crear_item')
-<<<<<<< HEAD
     def NuevoItem(self, proyecto_id, fase_id, tipoitem_id, **kw):
-=======
-    def NuevoItem(self, proyecto_id, fase_id, tipo_item, **kw):
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 	#en caso de error de validacion al crear item
 	if 'nombre' in kw:
 		nombre = kw['nombre']
@@ -783,7 +699,6 @@ class RootController(BaseController):
 		complejidad=""
 	if 'prioridad' in kw:
 		prioridad=kw['prioridad']
-<<<<<<< HEAD
 	else: 
 		prioridad=""
 	tipoitem = DBSession.query(Tipoitem).filter_by(codtipoitem=tipoitem_id).one()
@@ -811,17 +726,11 @@ class RootController(BaseController):
 					campo.error=unicode(e)
 		else:
 			campo.tmp = ''
-=======
-	else:
-		prioridad=""
-	tipoitem = DBSession.query(Tipoitem).filter_by(codtipoitem=tipo_item).one()
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 	return dict(page='Creacion de Items', proyecto_id=proyecto_id, fase_id=fase_id, tipo_item=tipoitem, nombre=nombre, complejidad=complejidad, prioridad=prioridad, value=kw)
 
     @expose('')
     @validate({"nombre": NotEmpty(), "complejidad": Int(min=1, max=10), "prioridad": Int(min=1, max=10), }, error_handler=NuevoItem)
     def crearItem(self, proyecto_id, fase_id, tipoitem_id, **kw):
-<<<<<<< HEAD
 	tipoitem = DBSession.query(Tipoitem).filter_by(codtipoitem=tipoitem_id).one()
 	#Valida cada atributo especifico del tipo de item
 	for campo in tipoitem.campos:
@@ -836,9 +745,6 @@ class RootController(BaseController):
 				validator = validators.DateConverter()
 				validator.to_python(kw[campo.nombre])
 	##Una vez validados todos los campos, se crea el item
-=======
-	#print tipoitem_id
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 	item = Item()
 	item.nombre=kw['nombre']
 	item.complejidad=kw['complejidad']
@@ -847,7 +753,6 @@ class RootController(BaseController):
 	item.estado='desarrollo'
 	import datetime
 	item.fecha=datetime.date.today()
-<<<<<<< HEAD
 	fase = DBSession.query(Fase).filter_by(codfase=fase_id).one()
 	item.fase = fase
 	item.tipoitem = tipoitem
@@ -1197,26 +1102,10 @@ class RootController(BaseController):
 				import datetime
 				atributo.valoratributo=datetime.date.today()
 			cont=cont+1
-=======
-	tipoitem = DBSession.query(Tipoitem).filter_by(codtipoitem=tipoitem_id).one()
-	item.tipoitem = tipoitem
-	fase = DBSession.query(Fase).filter_by(codfase=fase_id).one()
-	#print fase
-	#print item.fase
-	item.fase = fase
-	#print tipoitem
-	DBSession.add(item)
-	fase.items.append(item)
-	tipoitem.items.append(item)
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 	redirect("/IngresarFase/"+proyecto_id+"/"+fase_id)
 
     @expose('prueba.templates.editar_item')
     def ModificarItem(self, proyecto_id, fase_id, item_id, **kw):
-<<<<<<< HEAD
-=======
-	print kw
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 	item = DBSession.query(Item).filter_by(coditem=item_id).one()
 	tipoitem = item.tipoitem
 	###Listar items de la fase anterior y de la fase posterior
@@ -1226,7 +1115,6 @@ class RootController(BaseController):
 	orden_der =  orden_fase+1
 	items_izq=list()
 	items_der=list()
-<<<<<<< HEAD
 	izq=list()
 	der=list()
 	if orden_fase > 1:
@@ -1304,6 +1192,41 @@ class RootController(BaseController):
   # Do foo things
 #def handle_form_bar(self, *args, **kwargs):
   # Do bar things
+
+    @expose('prueba.templates.establecer_relacion_misma_fase')
+    def RelacionarItemFase(self, proyecto_id, fase_id, item_id, **kw):
+        item = DBSession.query(Item).filter_by(coditem=item_id).one()
+        fase = DBSession.query(Fase).filter_by(codfase=fase_id).one()#traer items de la fase
+        itemAct = fase.items
+        itemFin=list()
+        return dict(page='Edicion de Items', proyecto_id=proyecto_id, fase_id=fase_id, item=item, itemFin=itemFin, itemAct=itemAct, value=kw)
+    
+    @expose('')
+    def RelacionMismaFase(self,proyecto_id, fase_id, item_id,**kw):
+        
+        calciclo = Ciclos(int(item_id),int(kw['itemFin']))
+        ciclo = calciclo.calcular()
+        #si hay ciclo, informar de error al cliente y redireccionar a alguna parte
+        if ciclo == 0:
+            print "no hay cicloooooooo!!!!!!!!!!!!!!!!!!!11***********************"
+            
+            relacionNueva = Relacion()
+            relacionNueva.coditeminicio=int(item_id)
+            relacionNueva.coditemfin= int(kw['itemFin'])
+            relacionNueva.tipo='padre-hijo'
+            DBSession.add(relacionNueva)
+                #cambios en los datos del item        
+            #item.version= item.version + 1 #nueva version
+            #item.estado='revision'
+            #DBSession.flush()
+            
+            
+            flash("Relacion establecida exitosamente")
+            redirect("/IngresarFase/"+proyecto_id+"/"+fase_id)
+        else:
+            flash("No se permite la relacion.Un ciclo se formara con ella")   
+            redirect("/IngresarFase/"+proyecto_id+"/"+fase_id)    
+
     @expose()
     def modificarItem(self, proyecto_id, fase_id, item_id, **kw):
 	if 'modificar' in kw:
@@ -1311,20 +1234,9 @@ class RootController(BaseController):
 		self.editarItem(proyecto_id, fase_id, item_id, **kw)
 	if 'revision' in kw:
 		self.editarItemPorRevision(proyecto_id, fase_id, item_id, **kw)
-=======
-	if orden_fase > 1:
-		fase_izq = DBSession.query(Fase).filter_by(codproyecto=proyecto_id).filter_by(orden=orden_izq).one()
-		items_izq = fase_izq.items
-	if orden_fase < proyecto.cantfases:
-		fase_der = DBSession.query(Fase).filter_by(codproyecto=proyecto_id).filter_by(orden=orden_der).one()
-		items_der = fase_der.items
-	return dict(page='Edicion de Items', proyecto_id=proyecto_id, fase_id=fase_id, item=item, tipoitem=tipoitem, items_izq=items_izq, items_der=items_der, value=kw)
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
-
     @expose('')
     @validate({"nombre": NotEmpty(), "complejidad": Int(min=1, max=10), "prioridad": Int(min=1, max=10), }, error_handler=ModificarItem)
     def editarItem(self, proyecto_id, fase_id, item_id, **kw):
-<<<<<<< HEAD
 	#Actualiza tipo de item
 	item = DBSession.query(Item).filter_by(coditem=item_id).one()
 	#self.actualizarHistorialDeItem(item)
@@ -1428,14 +1340,11 @@ class RootController(BaseController):
     @expose('')
     @validate({"nombre": NotEmpty(), "complejidad": Int(min=1, max=10), "prioridad": Int(min=1, max=10), }, error_handler=ModificarItem)
     def editarItemPorRevision(self, proyecto_id, fase_id, item_id, **kw):
-=======
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 	item = DBSession.query(Item).filter_by(coditem=item_id).one()
 	item.nombre=kw['nombre']
 	item.complejidad=kw['complejidad']
 	item.prioridad=kw['prioridad']
 	item.version=1
-<<<<<<< HEAD
 	item.estado='espera'
 	import datetime
 	item.fecha=datetime.date.today()
@@ -1446,31 +1355,18 @@ class RootController(BaseController):
 	item = DBSession.query(Item).filter_by(coditem=item_id).one()
 	  ## items_izq es una lista con los items seleccionados en el <select> como antecesores
 	if 'items_izq' in kw: 
-=======
-	item.estado='definicion'
-	import datetime
-	item.fecha=datetime.date.today()
-	DBSession.flush()
-	##Crear las relaciones
-	if 'items_izq' in kw:
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 		items_izq = kw['items_izq']
 		if not isinstance(items_izq, list):
 			items_izq = [items_izq]
 	else:
 		items_izq=list()
-<<<<<<< HEAD
 	  ## items_der es una lista con los items seleccionados en el <select> como sucesores
 	if 'items_der' in kw: 
-=======
-	if 'items_der' in kw:
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 		items_der = kw['items_der']
 		if not isinstance(items_der, list):
 			items_der = [items_der]
 	else:
 		items_der=list()
-<<<<<<< HEAD
 	cont=0
 	for item_izq in items_izq:
 		relacion = Relacion()
@@ -1712,13 +1608,84 @@ class RootController(BaseController):
     @expose()
     def RevertirItem(self, proyecto_id, fase_id, item_id, version):
 	#Guardar version actual en el historial
-	item_version_actual = DBSession.query(Item).filter_by(coditem=item_id).one()
-	self.actualizarHistorialDeItem(item_version_actual)
+	item = DBSession.query(Item).filter_by(coditem=item_id).one()
+	self.actualizarHistorialDeItem(item)
 	#Traer del historial la version a revertir
 	item_version_anterior = DBSession.query(ItemHistorial).filter_by(coditem=item_id).filter_by(version=version).one()
 	#Actualizar atributos comunes
-	
-	
+	item.version=item.version+1
+	item.nombre=item_version_anterior.nombre
+	item.complejidad=item_version_anterior.complejidad
+	item.prioridad=item_version_anterior.prioridad
+	item.estado=item_version_anterior.estado
+	item.fecha=item_version_anterior.fecha
+	#Actualiza atributos especificos
+	atributos = item.atributos
+	atributos_historial=item_version_anterior.atributos
+	cont=0
+	for atributo in atributos_historial:
+		atributos[cont].valoratributo=atributo.valor
+		cont=cont+1
+	if cont < len(atributos):
+		while(cont<len(atributos)):
+			if atributos[cont].campo.tipo=="Integer":
+				atributo[cont].valoratributo=0
+			if atributos[cont].campo.tipo=="String":
+				atributo[cont].valoratributo='-'
+			if atributos[cont].campo.tipo=="Date":
+				import datetime	
+				atributo[cont].valoratributo = datetime.date.today()	
+			cont=cont+1
+	DBSession.flush()
+	#Elimina relaciones actuales
+	relaciones = DBSession.query(Relacion).filter(or_(Relacion.coditeminicio==item_id,Relacion.coditemfin==item_id)).all()
+	for relacion in relaciones:
+		DBSession.delete(relacion)
+		print relacion
+	#Recupera los antecesores de la version anterior
+	antecesores = DBSession.query(RelacionHistorial.coditem2).filter_by(coditem1=item_id).filter_by(version1=version).filter_by(tipo='antecesor').all()
+	for antecesor in antecesores:
+		cant = DBSession.query(Item).filter_by(coditem=antecesor[0]).count()
+		if cant==1:
+			relacion=Relacion()
+			relacion.coditeminicio=antecesor[0]
+			relacion.coditemfin=item_id
+			relacion.tipo='antecesor-sucesor'
+			DBSession.add(relacion)
+	##SUCESORES
+	sucesores = DBSession.query(RelacionHistorial.coditem2).filter_by(coditem1=item_id).filter_by(version1=version).filter_by(tipo='sucesor').all()
+	for sucesor in sucesores:
+		cant = DBSession.query(Item).filter_by(coditem=sucesor[0]).count()
+		if cant==1:
+			relacion=Relacion()
+			relacion.coditeminicio=item_id
+			relacion.coditemfin=sucesor[0]
+			relacion.tipo='antecesor-sucesor'
+			DBSession.add(relacion)
+	##PADRES
+	padres = DBSession.query(RelacionHistorial.coditem2).filter_by(coditem1=item_id).filter_by(version1=version).filter_by(tipo='padre').all()
+	for padre in padres:
+		cant = DBSession.query(Item).filter_by(coditem=padre[0]).count()
+		calciclo = Ciclos(int(padre[0]),int(item_id))
+        	ciclo = calciclo.calcular()
+		if cant==1 and ciclo==0:
+			relacion=Relacion()
+			relacion.coditeminicio=padre[0]
+			relacion.coditemfin=item_id
+			relacion.tipo='padre-hijo'
+			DBSession.add(relacion)
+	##HIJOS
+	hijos = DBSession.query(RelacionHistorial.coditem2).filter_by(coditem1=item_id).filter_by(version1=version).filter_by(tipo='hijo').all() 
+	for hijo in hijos:
+		cant = DBSession.query(Item).filter_by(coditem=hijo[0]).count()
+		calciclo = Ciclos(int(item_id), int(hijo[0]))
+		ciclo = calciclo.calcular()
+		if cant==1 and ciclo==0:
+			relacion=Relacion()
+			relacion.coditeminicio=item_id
+			relacion.coditemfin=hijo[0]
+			relacion.tipo='padre-hijo'
+			DBSession.add(relacion)
 	redirect('/ConsultarItem/' + proyecto_id + '/' + fase_id + '/' + item_id)
 
     @expose('prueba.templates.consultar_itemhistorial')
@@ -1753,22 +1720,6 @@ class RootController(BaseController):
 	items_hij = DBSession.query(RelacionHistorial).filter_by(coditem1=item_id).filter_by(version1=item_version).filter_by(tipo='hijo').all()
 	return dict(page='Consulta de item historial', proyecto_id=proyecto_id, fase_id=fase_id, item=item, tipoitem=tipoitem, fase_orden=fase_orden, cantfases=cantfases, atributos=atributos, items_izq=items_izq, items_der=items_der, items_pad=items_pad, items_hij=items_hij, value=kw)
 
-=======
-	for item in items_izq:
-		relacion = Relacion()
-		relacion.coditeminicio= int(item)
-		relacion.coditemfin=item_id
-		relacion.tipo='antecesor-sucesor'
-		DBSession.add(relacion)
-	for item in items_der:
-		relacion = Relacion()
-		relacion.coditeminicio= item_id
-		relacion.coditemfin=int(item)
-		relacion.tipo='antecesor-sucesor'
-		DBSession.add(relacion)
-	redirect("/IngresarFase/"+proyecto_id+"/"+fase_id)
-
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
     @expose('prueba.templates.about')
     def about(self):
         """Handle the 'about' page."""
@@ -1834,7 +1785,6 @@ class RootController(BaseController):
         """
         flash(_('We hope to see you soon!'))
         redirect(came_from)
-<<<<<<< HEAD
 
 #>>> from sqlalchemy.orm.exc import NoResultFound
 #>>> try: 
@@ -1849,5 +1799,3 @@ class RootController(BaseController):
 #... except MultipleResultsFound, e:
 #...     print e
 # Multiple rows were found for one()
-=======
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666

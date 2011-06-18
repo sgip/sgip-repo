@@ -54,7 +54,6 @@ class Fase(DeclarativeBase):
     def __unicode__(self):
         return self.nombre
 
-<<<<<<< HEAD
 class Modificacion(DeclarativeBase):
     __tablename__ = 'modificacion'
     #column definitions
@@ -68,8 +67,6 @@ class Revision(DeclarativeBase):
     actual = Column(u'actual', Integer, primary_key=True, autoincrement=False)
     anterior = Column(u'anterior', Integer, primary_key=True, autoincrement=False)
 
-=======
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 class Lineabase(DeclarativeBase):
     __tablename__ = 'lineabase'
     #column definitions
@@ -101,7 +98,6 @@ class Item(DeclarativeBase):
     codfase = Column(u'fase', Integer, ForeignKey('fase.codfase'))
     fase = relation('Fase', backref='items')
 
-<<<<<<< HEAD
     def __cmp__( self, other ):
 	if self.coditem < other.coditem:
         	rst = -1
@@ -111,8 +107,6 @@ class Item(DeclarativeBase):
         	rst = 0
 	return rst
 
-=======
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 class ArchivoExterno(DeclarativeBase):
     __tablename__ = 'archivo_externo'
     #column definitions
@@ -124,7 +118,6 @@ class Atributo(DeclarativeBase):
     __tablename__ = 'atributo'
     #column definitions
     codatributo = Column(u'codatributo', Integer, primary_key=True)
-<<<<<<< HEAD
     codcampo = Column(u'codcampo', Integer, ForeignKey('campo.codcampo'), nullable=False)
     campo = relation('Campo', backref="atributos")
     coditem = Column(u'coditem', Integer, ForeignKey('item.coditem'), nullable=False)
@@ -138,11 +131,6 @@ class Atributo(DeclarativeBase):
       	else:
         	rst = 0
 	return rst
-=======
-    codcampo = Column(u'codcampo', Integer, nullable=False)
-    coditem = Column(u'coditem', Integer, ForeignKey('item.coditem'), nullable=False)
-    valoratributo = Column(u'valoratributo', String(20), nullable=False)
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 
 class Campo(DeclarativeBase):
     __tablename__ = 'campo'
@@ -152,7 +140,6 @@ class Campo(DeclarativeBase):
     tipoitem = relation('Tipoitem', backref="campos")
     nombre = Column(u'nombre', String(15), nullable=False)
     tipo = Column(u'tipo', String(10), nullable=False)
-<<<<<<< HEAD
     tmp = Column(u'tmp', String(20), nullable=True)
     error=Column(u'error', String(100), nullable=True)
     def __cmp__( self, other ):
@@ -163,21 +150,12 @@ class Campo(DeclarativeBase):
       	else:
         	rst = 0
 	return rst
-=======
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 
 class HistorialItem(DeclarativeBase):
     __tablename__ = 'historial_item'
     #column definitions
     codhistorial = Column(u'codhistorial', Integer, primary_key=True)
-<<<<<<< HEAD
     coditem = Column(u'coditem', Integer, nullable=False)
-=======
-    codlineabase = Column(u'codlineabase', Integer, ForeignKey('lineabase.codlineabase'))
-    descripcion = Column(u'descripcion', String(100), nullable=False)
-    fechacreacion = Column(u'fechacreacion', Date, nullable=False)
-    fechamodificacion = Column(u'fechamodificacion', Date, nullable=False)
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 
 class HistorialLineabase(DeclarativeBase):
     __tablename__ = 'historial_lineabase'
@@ -190,7 +168,6 @@ class HistorialLineabase(DeclarativeBase):
 class Relacion(DeclarativeBase):
     __tablename__ = 'relacion'
     #column definitions
-<<<<<<< HEAD
     codrelacion = Column(u'codrelacion', Integer, primary_key=True)
     coditeminicio = Column(u'coditeminicio', Integer, ForeignKey('item.coditem'), nullable=False)
     iteminicio = relationship("Item", backref="items_inicio_relaciones", primaryjoin=coditeminicio==Item.coditem)
@@ -198,30 +175,6 @@ class Relacion(DeclarativeBase):
     itemfin = relationship("Item", backref="items_fin_relaciones", primaryjoin=coditemfin==Item.coditem)
     tipo = Column(u'tipo', String(20), nullable=False)
 
-=======
-    coditemfin = Column(u'coditemfin', Integer, ForeignKey('item.coditem'), nullable=False)
-    #itemfin = relation('Item', backref='relaciones_fin')
-    coditeminicio = Column(u'coditeminicio', Integer, ForeignKey('item.coditem'), nullable=False)
-    #iteminicio = relation('Item', backref='relaciones_inicio')
-    codrelacion = Column(u'codrelacion', Integer, primary_key=True)
-    tipo = Column(u'tipo', String(20), nullable=False)
-
-#class Permiso(DeclarativeBase):
-#    __tablename__ = 'permiso'
-    #column definitions
-#    codpermiso = Column(u'codpermiso', Integer, primary_key=True)
-#    descripcion = Column(u'descripcion', String(100), nullable=True)
-#    nombre = Column(u'nombre', String(20), nullable=False)
-
-#class UsuarioRolProyecto(DeclarativeBase):
-#    __table__ = 'usuario_rol_proyecto'
-
-#usuario_rol = Table(u'usuario_rol', metadata,
-#    Column(u'codigousuario', Integer, ForeignKey('usuario.codusuario'), primary_key=True, nullable=False),
-#    Column(u'codigorol', Integer, ForeignKey('rol.codrol'), primary_key=True, nullable=False),
-#)
-
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 item_proyecto = Table(u'item_proyecto', metadata,
     Column(u'coditem', Integer, ForeignKey('item.coditem'), primary_key=True, nullable=False),
     Column(u'codproyecto', Integer, ForeignKey('proyecto.codproyecto'), primary_key=True, nullable=False),
@@ -238,7 +191,6 @@ item_proyecto = Table(u'item_proyecto', metadata,
 #    Column(u'codfase', Integer, ForeignKey('fase.codfase'), primary_key=True, nullable=False),
 #)
 
-<<<<<<< HEAD
 class ItemHistorial(DeclarativeBase):
     __tablename__ = 'item_historial'
     #column definitions
@@ -295,10 +247,3 @@ class RelacionHistorial(DeclarativeBase):
     ForeignKeyConstraint(['coditem1', 'version1'], ['item_historial.coditem', 'item_historial.version'])
 
 ##faltaria archivo_externo_historial
-=======
-#permiso_rol = Table(u'permiso_rol', metadata,
-#    Column(u'codigorol', Integer, ForeignKey('rol.codrol'), primary_key=True, nullable=False),
-#    Column(u'codigopermiso', Integer, ForeignKey('permiso.codpermiso'), primary_key=True, nullable=False),
-#)
-
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666

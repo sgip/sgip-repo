@@ -1,9 +1,5 @@
 from repoze.what.predicates import Predicate
-<<<<<<< HEAD
 from prueba.model import DBSession, Group
-=======
-from classifieds.model import DBSession, Group
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 from repoze.what.predicates import has_permission
 
 class user_can_edit(Predicate):

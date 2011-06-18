@@ -43,11 +43,7 @@
 
         <tbody>
           <tr py:for="i, proyecto in enumerate(proyectos)" class="${i%2 and 'even' or 'odd'}">
-<<<<<<< HEAD
 	    <th> <a py:if="tg.predicates.has_permission('EditarProyecto'+str(proyecto.codproyecto))" href="/EditarProyecto/${proyecto.codproyecto}">Editar</a> </th>
-=======
-	    <th> <a py:if="currentPage" href="/EditarProyecto/${proyecto.codproyecto}">Editar</a> </th>
->>>>>>> 15d55ec2fd13456b8dc61812e944550c8230c666
 	    <th> <a href="/EliminarProyecto/${proyecto.codproyecto}">Eliminar</a></th>
 	    <th> <a py:if="proyecto.estado=='definicion'" href="/DefinirFases/${proyecto.codproyecto}">Definir fases</a></th>
 	    <th class="proyecto-codigo">${proyecto.codproyecto}</th>
