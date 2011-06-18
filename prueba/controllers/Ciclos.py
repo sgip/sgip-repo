@@ -34,13 +34,6 @@ class Ciclos:
                     listaItem.append(j.coditeminicio)
                     hijos.append(j.coditemfin)
         
-        print "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-        print listaItem
-        print "****************************************************************"
-        print padres
-        print "----------------------------------------------------------------"
-        print hijos
-        
         for inicio in padres:
             pila.append(inicio)
             while(pila and ciclo==0):
@@ -50,17 +43,10 @@ class Ciclos:
                 while origen in listaItem:
                     i = listaItem.index(origen)
                     listaItem[i] = -1
-                    print "nuevo index ====================================================================== " + str(i)
-                    print "////////////////////////////lista de visitados //////////////////////////////////////////////////////////////////////////////"
-                    print visitados
-                    print "////////////////////////////lista de en Lista de _Item //////////////////////////////////////////////////////////////////////////////"
-                    print listaItem
                     if hijos[i] in visitados:#mirar si no fue visistado.hay ciclo y se pasa al sgt valor en la lista padres
                         pila = list()
                         visitados = list()
                         listaItem = list()
-                        print "hay ciclo en el proceso /*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/"
-                        print visitados
                         ciclo = 1
                         return ciclo 
                         break
