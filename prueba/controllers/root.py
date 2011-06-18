@@ -1685,7 +1685,7 @@ class RootController(BaseController):
 			relacion.coditeminicio=item_id
 			relacion.coditemfin=hijo[0]
 			relacion.tipo='padre-hijo'
-			DBSession.add(relacion)
+			DBSession.add(relacion)-
 	redirect('/ConsultarItem/' + proyecto_id + '/' + fase_id + '/' + item_id)
 
     @expose('prueba.templates.consultar_itemhistorial')
