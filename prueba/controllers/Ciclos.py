@@ -33,6 +33,8 @@ class Ciclos:
                     padres.append(j.coditeminicio)
                     listaItem.append(j.coditeminicio)
                     hijos.append(j.coditemfin)
+
+	print "/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/"
         
         for inicio in padres:
             pila.append(inicio)
@@ -55,8 +57,10 @@ class Ciclos:
                         visitados.append(hijos[i])
             if ciclo==1:
                 break
+
             listaItem=list()
             visitados=list()
+
             for x in padres:
                 listaItem.append(x)
                 
